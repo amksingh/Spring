@@ -1,0 +1,54 @@
+package com.aman.demo;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.aman.entity.Employee;
+
+//this is the always error we need to import hibernate 
+//import com.mysql.cj.xdevapi.SessionFactory;
+
+
+public class EmpDemo {
+
+	public static void main(String[] args) {
+		SessionFactory factory=new Configuration().configure().addAnnotatedClass(Employee.class).buildSessionFactory();
+		Session session=factory.getCurrentSession();
+		
+		try {
+			//create employee object 
+			Employee theEmployee=new Employee("sunidhi","mishra","google");
+			//start the transaction
+			session.beginTransaction();
+			//save the object in the memory 
+			session.save(theEmployee);
+			//after commiting the data is get reflected in the database
+			session.getTransaction().commit();
+			System.out.println("to retrive the object using primary key");
+			session=factory.getCurrentSession();
+			session.beginTransaction();
+			Employee myEmp=session.get(Employee.class, 1);
+			session.getTransaction().commit();
+			System.out.println(myEmp);
+			
+			
+			//code to query the object to find the employees with the given company
+			session=factory.getCurrentSession();
+			session.beginTransaction();
+			List<Employee> emp1=session.createQuery("from employee  where company='google'").getResultList();
+			for(Employee em:emp1) {
+				System.out.println(em);
+			}
+			
+		}
+		finally {
+			factory.close();
+		}
+		
+
+	}
+
+}

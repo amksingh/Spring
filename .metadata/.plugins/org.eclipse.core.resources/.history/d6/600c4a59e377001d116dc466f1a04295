@@ -1,0 +1,16 @@
+package com.aman.demo;
+
+import org.hibernate.cfg.Configuration;
+
+import com.aman.entity.Employee;
+import com.mysql.cj.xdevapi.SessionFactory;
+
+public class EmpDemo {
+
+	public static void main(String[] args) {
+		SessionFactory factory=new Configuration().configure().addAnnotatedClass(Employee.class).buildSessionFactory();
+		
+
+	}
+
+}

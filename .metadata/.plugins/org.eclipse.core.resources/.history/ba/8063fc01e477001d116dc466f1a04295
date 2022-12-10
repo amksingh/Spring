@@ -1,0 +1,32 @@
+package com.aman.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.aman.entity.Employee;
+
+//this is the always error we need to import hibernate 
+//import com.mysql.cj.xdevapi.SessionFactory;
+
+
+public class EmpDemo {
+
+	public static void main(String[] args) {
+		SessionFactory factory=new Configuration().configure().addAnnotatedClass(Employee.class).buildSessionFactory();
+		Session session=factory.getCurrentSession();
+		
+		try {
+			
+			//use the session object to save the object
+			
+			
+		}
+		finally {
+			factory.close();
+		}
+		
+
+	}
+
+}
